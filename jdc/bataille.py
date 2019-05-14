@@ -74,9 +74,30 @@ def tirerCarte(jeu: Jeu):
 
 
 def distribuerCartes(jeu: Jeu, joueurs: Repertoire):
+    dico = {}
+    jeu = battreCartes(jeu)
+    nbr_joueurs = len(joueurs)
+    nbr_jeu = len(jeu)
+    for z in range(0, nbr_joueurs):
+        dico[joueurs[z]] = []
+    while nbr_jeu > 0:
+        for y in range(0, nbr_joueurs):
+            if nbr_jeu > 0:
+                carte = tirerCarte(jeu)
+                dico[joueurs[y]].append(carte)
+                nbr_jeu -= 1
+    return dico
+   
 
-
-#~ def donnnerCartes(joueurs: Joueurs):
+def donnerCartes(joueurs: Joueurs):
+    dico = {}
+    keys_joueurs = list(joueurs.keys())
+    for i in keys_joueurs:
+        if len(joueurs[i]) > 0:
+            dico[i] = []
+            carte = joueurs[i][randrange(0, len(joueurs[i]))]
+            dico[i].append(carte)
+    return dico
 
 
 #~ def comparerCartes(cartes: Donne):
@@ -96,3 +117,8 @@ if __name__ == "__main__":
     #print(construireJdC(VALEURS, COULEURS, True))
     #print(nomCarte((11, 1)))
     #print(tirerCarte([]))
+    player = ["Jérémi", "Melanie", "Virginie", "Michel", "bernard", "mdr", "sweet"]
+    carte = construireJdC(VALEURS, COULEURS, True)
+    # ~ print(distribuerCartes(carte, player))
+    print(donnerCartes(distribuerCartes(carte, player)))
+    print(donnerCartes({'Jérémi': [(9, 3), (11, 3), (0, 0), (5, 0), (1, 1), (8, 0), (7, 2), (0, 0), (12, 1)], 'Melanie': [(1, 3), (12, 2), (3, 1), (10, 1), (12, 0), (11, 1), (4, 0), (9, 1), (5, 2)], 'Virginie': [(10, 0), (14, 2), (11, 0), (2, 1), (2, 0), (13, 1), (14, 1), (4, 2), (6, 1)], 'Michel': [(14, 3), (6, 3), (8, 1), (10, 2), (1, 2), (9, 2), (13, 2), (10, 3), (14, 0)], 'bernard': [(12, 3), (8, 3), (11, 2), (3, 2), (2, 2), (4, 3), (9, 0), (3, 3)], 'mdr': [(4, 1)], 'sweet': []}))
